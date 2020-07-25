@@ -1,20 +1,21 @@
 package kattis.money_matters;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Friend {
-	private String name;
+	private int name;
 	private int balance;
-	private Set<Friend> friends;
+	private List<Friend> friends;
 	
-	public Friend(String name, int balance) {
+	public Friend(int name, int balance) {
 		this.name = name;
 		this.balance = balance;
-		this.friends = new HashSet<>();
+		this.friends = new LinkedList<>();
 	}
 
-	public String getName() {
+	public int getName() {
 		return name;
 	}
 
@@ -25,13 +26,17 @@ public class Friend {
 	public void addFriend(Friend friend) {
 		this.friends.add(friend);
 	}
+	
+	public Iterator<Friend> getFriendsIterator(){
+		return this.friends.iterator();
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + balance;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + name;
 		return result;
 	}
 
@@ -46,11 +51,9 @@ public class Friend {
 		Friend other = (Friend) obj;
 		if (balance != other.balance)
 			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
+		if (name != other.name)
 			return false;
 		return true;
 	}
+
 }
